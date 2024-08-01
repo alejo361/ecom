@@ -1,0 +1,57 @@
+body{
+    background-color: #020204;
+    font-family: "Inconsolata", monospace;
+    font-optical-sizing: auto;
+    /*font-weight: <weight>;*/
+    font-style: normal;
+    color: #22b455;
+}
+.empresa{
+    text-align: center;
+    font-size: 5vw;
+}
+.frase{
+    text-align: center;
+    font-size: medium;
+}
+.navbar{
+    background-color: #22b455;
+    color: #020204;
+}
+.nav-link{
+    font-weight: bolder;
+}
+.card{
+    font-weight: bolder;
+    background-color: #204829;
+}
+.card-footer{
+    /*font-weight: bolder;*/
+    background-color: #22b455;
+}
+.btn-comprar{
+    /*background-color: #22b455;
+    color:#020204*/
+}
+.footer{
+    font-weight: bolder;
+    color: #020204;
+    background-color: #204829;
+}
+.derechos{
+    font-weight: bolder;
+    color: #020204;
+    background-color: #22b455;
+}
+
+.cart-icon{
+    display: inline-block;
+    vertical-align: middle;
+}
+/*
+HEX: #020204, RGB: (2, 2, 4); 
+HEX: #204829, RGB: (32, 72, 41); 
+HEX: #22b455, RGB: (34, 180, 85)
+HEX: #80ce87, RGB: (128, 206, 135); 
+HEX: #92e5a1, RGB: (146, 229, 161)
+*/
