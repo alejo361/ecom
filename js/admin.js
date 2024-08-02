@@ -97,9 +97,6 @@ if (editModal) {
         
         const modalTitle = document.querySelector('.modal-title')
         const modalBodyInput = document.querySelector('.modal-body input')
-        const mdnombre = document.getElementById("mdnombre");
-        mdnombre.value = idProducto;
-        
 
         modalTitle.textContent = `Editar producto: ${idProducto}`
         modalBodyInput.value = idProducto
