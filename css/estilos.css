@@ -21,7 +21,7 @@ body{
 .nav-link{
     font-weight: bolder;
 }
-.card{
+.card-producto{
     font-weight: bolder;
     background-color: #204829;
 }
@@ -47,6 +47,10 @@ body{
 .cart-icon{
     display: inline-block;
     vertical-align: middle;
+}
+
+.enviarForm {
+    background-color: #204829;
 }
 /*
 HEX: #020204, RGB: (2, 2, 4); 
