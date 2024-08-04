@@ -10,7 +10,7 @@ class Producto {
     editarProducto(rubro, nombre, precio, stock) {
         this.rubro = rubro;
         this.nombre = nombre;
-        this.precio = this.precio;
-        this.stock = this.stock;
+        this.precio = precio;
+        this.stock = stock;
     }
 }

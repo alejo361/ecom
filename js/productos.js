@@ -1,7 +1,7 @@
 
 class Productos {
-	constructor(productos) {
-		this.lista = productos;
+	constructor() {
+		this.lista = JSON.parse(localStorage.getItem('productos')) || [];
 	}
 
 	agregarProducto(producto) {
@@ -13,62 +13,72 @@ class Productos {
 		return false;
 	}
 
-	updateLocalStorage(){
-		this.lista.forEach(producto => {
-			localStorage.setItem('producto', JSON.stringify(productos))
-		});	
+	updateLocalStorage() {
+		//Esta condicion evita que si estoy borrando y queda un solo elemento me lo dejaba en LocalStorage
+		if (this.lista.length === 0) {
+            localStorage.removeItem("productos");
+        } else {
+            localStorage.setItem('productos', JSON.stringify(this.lista));
+        }
 	}
 
-	vaciarLocalStorage(){
-		localStorage.clear();
+	vaciar(){
+		this.lista = [];
+		this.vaciarLocalStorage();
 	}
 
-	cargarEjemplos() {
-		this.lista = [
-			new Producto('0001', 'COMPUTADORAS', 'LAPTOP ASUS', 65000, 8),
-			new Producto('0002', 'COMPUTADORAS', 'DESKTOP HP', 75000, 10),
-			new Producto('0003', 'CELULARES', 'SAMSUNG GALAXY S21', 60000, 15),
-			new Producto('0004', 'TABLETS', 'IPAD AIR', 40000, 20),
-			new Producto('0005', 'COMPUTADORAS', 'LAPTOP DELL', 70000, 12),
-			new Producto('0006', 'COMPUTADORAS', 'MINI PC LENOVO', 50000, 7),
-			new Producto('0007', 'CELULARES', 'IPHONE 12', 80000, 5),
-			new Producto('0008', 'TABLETS', 'SAMSUNG GALAXY TAB S7', 55000, 10),
-		];
-        this.updateLocalStorage();
+	vaciarLocalStorage() {
+		localStorage.removeItem("productos");
 	}
 
-    cantidad(){
-        return (this.lista == undefined)  ? 0 : this.lista.length;
-    }
+	cantidad() {
+		return (this.lista == undefined || this.lista.length == 0) ? 0 : this.lista.length;
+	}
 
 	yaExisteId(id) {
-        if(this.cantidad() > 0){
-		    return this.lista.some((producto) => producto.id.includes(id));
-        }
-        return false;
+		if (this.cantidad() > 0) {
+			return this.lista.some((producto) => producto.id.includes(id));
+		}
+		return false;
 	}
 
 	buscarId(id) {
 		return this.lista.find((producto) => producto.id.toUpperCase() === id.toUpperCase());
 	}
-
+	
 	incrementarPrecios(porcentaje) {
-		this.lista.forEach((producto) => (
-			producto.precio = ((producto.precio * porcentaje) / 100) + producto.precio
-		));
+		this.lista.forEach((producto) => {
+			producto.precio = parseInt(((parseInt(producto.precio) * porcentaje) / 100) + parseInt(producto.precio))
+		});
+		this.updateLocalStorage();
 	}
 
 	filtrarProductos(busqueda) {
-		const result = this.lista.filter((producto) => (producto.nombre.toUpperCase().indexOf(busqueda) != -1 || producto.rubro.toUpperCase().indexOf(busqueda) != -1));
-		return result;
+		const busquedaUpper = busqueda.toUpperCase();
+		return this.lista.filter((producto) =>
+			producto.nombre.toUpperCase().includes(busquedaUpper) ||
+			producto.rubro.toUpperCase().includes(busquedaUpper)
+		);
+	}
+
+	ordenarPor(campo, ascendente = true) {
+		this.lista.sort((a, b) => {
+			if (a[campo] < b[campo]) return ascendente ? -1 : 1;
+			if (a[campo] > b[campo]) return ascendente ? 1 : -1;
+			return 0;
+		});
 	}
 
 	eliminarProducto(id) {
+		console.log("id a liminar" + id)
 		let indice = this.lista.findIndex((producto) => producto.id.toUpperCase() === id.toUpperCase());
-		if(indice != -1){
+		console.log("indice encontrado" + indice)
+		if (indice != -1) {
 			this.lista.splice(indice, 1);
+			this.updateLocalStorage();
 			return true;
 		}
+		console.log(indice);
 		return false;
 	}
 

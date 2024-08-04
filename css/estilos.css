@@ -1,50 +1,59 @@
-body{
+body {
     background-color: #020204;
     font-family: "Inconsolata", monospace;
     font-optical-sizing: auto;
-    /*font-weight: <weight>;*/
     font-style: normal;
     color: #22b455;
+    margin: 0;
+    padding: 0;
 }
-.empresa{
+
+.empresa {
     text-align: center;
     font-size: 5vw;
 }
-.frase{
+
+.frase {
     text-align: center;
     font-size: medium;
 }
-.navbar{
+
+.navbar {
     background-color: #22b455;
     color: #020204;
 }
-.nav-link{
+
+.nav-link {
     font-weight: bolder;
 }
-.card-producto{
+
+.card-producto {
     font-weight: bolder;
     background-color: #204829;
 }
-.card-footer{
-    /*font-weight: bolder;*/
+
+.card-footer {
     background-color: #22b455;
 }
-.btn-comprar{
+
+.btn-comprar {
     /*background-color: #22b455;
     color:#020204*/
 }
-.footer{
+
+.footer {
     font-weight: bolder;
     color: #020204;
     background-color: #204829;
 }
-.derechos{
+
+.derechos {
     font-weight: bolder;
     color: #020204;
     background-color: #22b455;
 }
 
-.cart-icon{
+.cart-icon {
     display: inline-block;
     vertical-align: middle;
 }
@@ -52,6 +61,11 @@ body{
 .enviarForm {
     background-color: #204829;
 }
+
+.asc, .desc{
+    cursor: pointer;
+}
+
 /*
 HEX: #020204, RGB: (2, 2, 4); 
 HEX: #204829, RGB: (32, 72, 41); 

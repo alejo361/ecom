@@ -34,12 +34,6 @@
                                 <li class="nav-item ">
                                     <a class="nav-link" aria-current="page" href="./index.html">INICIO</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="./vistas/contacto.html">CONTACTO</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="./vistas/carrito.html">CARRITO<span class="cart-icon"><ion-icon name="cart"></ion-icon></span></a>
-                                </li>
                             </ul>
                         </div>
                         <!--<span class="navbar-text float-end carrito">
@@ -50,7 +44,21 @@
             </div>
         </nav>
         <main class="container text-center">
-            <section class="row row-cols-1 row-cols-md-3 g-4 m-4">
+            <div class="row justify-content-center">
+                <div class="col col-lg-4 col-md-6 col-xs-12">
+                    <p class="m-3">Datos prueba Usuario: admin Contraseña: admin</p>
+                    <form id="formLogin">
+                        <label for="mdUsuario" class="form-label">Usuario:</label>
+                        <input type="text" class="form-control rounded-0" placeholder="" id="mdUsuario" aria-label="mdUsuario">
+                        <label for="mdPass" class="form-label">Contraseña:</label>
+                        <input type="password" class="form-control rounded-0" placeholder="" id="mdPass" aria-label="mdPass">
+                        <button type="button" class="btn btn-dark rounded-0 mt-2 mb-3" id="btnLogin">Entrar</button>
+                        <p id="mdMensaje" class=""></p>
+                    </form>
+                </div>
+            </div>
+            <!--<section class="row row-cols-1 row-cols-md-3 g-4 m-4">
+                
                 <template>
                     <article class="col">
                         <producto class="card card-producto h-100 rounded-0">
@@ -68,7 +76,7 @@
                         </producto>
                     </article>
                 </template>
-            </section>
+            </section>-->
         </main>
         <footer>
             <div class="row">
@@ -90,8 +98,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="./js/producto.js"></script>
-    <script src="./js/productos.js"></script>
+    <script src="./js/login.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

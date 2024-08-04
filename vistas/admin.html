@@ -15,9 +15,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel='icon' href='../img/favicon.ico' type='image/x-icon' sizes="16x16" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
-
 <body>
     <div class="container-fluid">
         <header class="row">
@@ -26,7 +26,7 @@
                 <p class="frase">Tu tienda de tecnologia</p>
             </logo>
         </header>
-        <nav class="row">
+        <nav class="row ">
             <div class="col">
                 <nav class="navbar navbar-nav navbar-expand-lg">
                     <div class="container-fluid">
@@ -41,11 +41,7 @@
                                     <a class="nav-link" aria-current="page" href="../index.html">INICIO</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="./contacto.html">CONTACTO</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="./carrito.html">CARRITO<span
-                                            class="cart-icon"><ion-icon name="cart"></ion-icon></span></a>
+                                    <a class="nav-link" aria-current="page" href="#" id="logout">SALIR</a>
                                 </li>
                             </ul>
                         </div>
@@ -61,8 +57,8 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="submit" class="btn btn-dark rounded-0  mb-3">Productos</button>
-                    <button type="submit" class="btn btn-dark rounded-0  mb-3">Pedidos</button>
+                    <button class="btn btn-dark rounded-0  mb-3">Productos</button>
+                    <!--<button class="btn btn-dark rounded-0  mb-3">Pedidos(No disponible)</button>-->
                 </div>
             </div>
             <div class="row">
@@ -77,31 +73,32 @@
                                     <div class="col">
                                         <label for="codigo" class="form-label">Id - Código</label>
                                         <input type="text" class="form-control" placeholder="Ej: 0003 o NTBK01"
-                                            id="codigo" autofocus aria-label="codigo">
+                                            id="codigo" autofocus aria-label="codigo" required>
                                     </div>
                                     <div class="col">
                                         <label for="rubro" class="form-label">Rubro</label>
-                                        <input type="text" class="form-control" placeholder="Ej: Computación" id="rubro"
-                                            aria-label="rubro">
+                                        <select class="form-select" id="rubro" required>
+                                            <option value="" selected>Seleccione</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col">
                                         <label for="nombre" class="form-label">Nombre</label>
                                         <input type="text" class="form-control" placeholder="Ej: Notebook ASUS i9 32RAM"
-                                            id="nombre" aria-label="nombre">
+                                            id="nombre" aria-label="nombre" required>
                                     </div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col">
                                         <label for="precio" class="form-label">Precio</label>
                                         <input type="number" class="form-control" placeholder="Ej: 100" id="precio"
-                                            aria-label="precio">
+                                            aria-label="precio" required min="0" step="1">
                                     </div>
                                     <div class="col">
                                         <label for="stock" class="form-label">Stock</label>
                                         <input type="number" class="form-control" placeholder="Ej: 10" id="stock"
-                                            aria-label="stock">
+                                            aria-label="stock" required min="0" step="1">
                                     </div>
                                 </div>
                                 <div class="row m-2">
@@ -122,122 +119,151 @@
                             LISTADO DE PRODUCTOS
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Cantidad de productos: <span id="cant-prod">0</span></h5>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Buscar"
+                                            aria-label="Busqueda" aria-describedby="boton-buscar" id="textBusqueda">
+                                        <button class="btn btn-secondary" type="button" id="btnBuscarProd"><ion-icon
+                                                name="search"></ion-icon></button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-warning mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#remarModal">Remarcar Precios</button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-secondary mb-3" id="btnLoadEj">Load Ejemplos</button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger mb-3" id="btnEliminarTodo">Eliminar todo</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span >Cantidad de productos: <span id="cant-prod" >0</span></span>
+                                </div>
+                            </div>
                             <table class="table table-striped table-hover" id="tabla-productos">
-                                <thead>
+                                <thead class="table-dark">
                                     <tr>
-                                        <th>Codigo</th>
-                                        <th>Rubro</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th>Stock</th>
-                                        <th>Acciones</th>
+                                        <th data-campo="id">Id <i class="fas fa-sort"></i></th>
+                                        <th data-campo="rubro">Rubro <i class="fas fa-sort"></i></th>
+                                        <th data-campo="nombre">Nombre <i class="fas fa-sort"></i></th>
+                                        <th data-campo="precio">Precio <i class="fas fa-sort"></i></th>
+                                        <th data-campo="stock">Stock <i class="fas fa-sort"></i></th>
+                                        <th data-campo="no">Acciones</th>
                                     </tr>
                                 </thead>
-                                <template id="fila-productos">
-                                    <tr>
-                                        <td id="tdcodigo"></td>
-                                        <td id="tdrubro"></td>
-                                        <td id="tdnombre"></td>
-                                        <td id="tdprecio"></td>
-                                        <td id="tdstock"></td>
-                                        <td id="tdacciones">
-                                            <button data-bs-toggle="modal" data-bs-target="#editModal" data-bs-whatever="" class="btn btn-primary btn-editar">Editar</button> 
-                                            <button class="btn btn-danger btn-eliminar">Eliminar</button>
-                                        </td>
-                                    </tr>
-                                </template>
+                                    <template id="fila-productos">
+                                        <tr>
+                                            <td id="tdcodigo"></td>
+                                            <td id="tdrubro"></td>
+                                            <td id="tdnombre"></td>
+                                            <td id="tdprecio"></td>
+                                            <td id="tdstock"></td>
+                                            <td id="tdacciones">
+                                                <button data-bs-toggle="modal" data-bs-target="#editModal"
+                                                    data-bs-whatever="" class="btn btn-primary btn-editar">Editar</button>
+                                                <button class="btn btn-danger btn-eliminar">Eliminar</button>
+                                            </td>
+                                        </tr>
+                                    </template>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+                <div class="modal fade" id="remarModal" tabindex="-1" aria-labelledby="remarModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="editModalLabel">kakaka</h1>
+                                <h1 class="modal-title fs-5" id="remarModalLabel">Aumento de precios</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form>
-                                    <input type="hidden" class="form-control" placeholder="Ej: 0003 o NTBK01" id="mdcodigo" autofocus aria-label="codigo">
                                     <div class="col">
-                                        <label for="rubro" class="form-label">Rubro</label>
-                                        <input type="text" class="form-control" placeholder="Ej: Computación" id="mdrubro" aria-label="rubro">
-                                    </div>
-                                </div>
-                                <div class="row m-2">
-                                    <div class="col">
-                                        <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" placeholder="Ej: Notebook ASUS i9 32RAM" id="mdnombre" aria-label="nombre">
-                                    </div>
-                                </div>
-                                <div class="row m-2">
-                                    <div class="col">
-                                        <label for="precio" class="form-label">Precio</label>
-                                        <input type="number" class="form-control" placeholder="Ej: 100" id="mdprecio" aria-label="precio">
-                                    </div>
-                                    <div class="col">
-                                        <label for="stock" class="form-label">Stock</label>
-                                        <input type="number" class="form-control" placeholder="Ej: 10" id="mdstock"
-                                            aria-label="stock">
+                                        <label for="mdRemar" class="form-label">Porcentaje aumento</label>
+                                        <input type="number" min="0" class="form-control" placeholder="Ej: 4%"
+                                            id="mdRemar" aria-label="remar">
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-dark">Guardar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    id="closeMd">Cerrar</button>
+                                <button type="button" class="btn btn-dark" id="btnMdRemar">Remarcar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <template>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header">
-                                PEDIDOS
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="editModalLabel" id="modalEditarTitulo">Editar Producto</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <input type="hidden" class="form-control" placeholder="Ej: 0003 o NTBK01" id="mdcodigo"
+                                    autofocus aria-label="codigo">
+                                <div class="col">
+                                    <label for="rubro" class="form-label">Rubro</label>
+                                    <select class="form-select" id="mdrubro" required>
+                                        <option value="" selected>Seleccione</option>
+                                    </select>
+                                </div>
+                        </div>
+                        <div class="row m-2">
+                            <div class="col">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" placeholder="Ej: Notebook ASUS i9 32RAM"
+                                    id="mdnombre" aria-label="nombre">
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Nro</th>
-                                            <th>Cliente</th>
-                                            <th>lala</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
+                        </div>
+                        <div class="row m-2">
+                            <div class="col">
+                                <label for="precio" class="form-label">Precio</label>
+                                <input type="number" class="form-control" placeholder="Ej: 100" id="mdprecio"
+                                    aria-label="precio">
                             </div>
+                            <div class="col">
+                                <label for="stock" class="form-label">Stock</label>
+                                <input type="number" class="form-control" placeholder="Ej: 10" id="mdstock"
+                                    aria-label="stock">
+                            </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                id="closeMdEdit">Cerrar</button>
+                            <button type="button" class="btn btn-dark" id="btnMdSave">Guardar</button>
                         </div>
                     </div>
                 </div>
-            </template>
-        </main>
-        <footer class="mt-3">
-            <div class="row derechos">
-                <div class="col text-center  p-1">
-                    <small>Copyright La Verdad 2024 - Todos los derechos reservados.</small>
-                </div>
             </div>
-        </footer>
+    </div>
+    </main>
+    <footer class="mt-3">
+        <div class="row derechos">
+            <div class="col text-center  p-1">
+                <small>Copyright La Verdad 2024 - Todos los derechos reservados.</small>
+            </div>
+        </div>
+    </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="../js/login.js"></script>
     <script src="../js/producto.js"></script>
     <script src="../js/productos.js"></script>
     <script src="../js/admin.js"></script>
