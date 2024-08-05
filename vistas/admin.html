@@ -27,7 +27,7 @@
             </logo>
         </header>
         <nav class="row ">
-            <div class="col">
+            <div class="col m-0 p-0">
                 <nav class="navbar navbar-nav navbar-expand-lg">
                     <div class="container-fluid">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -101,8 +101,8 @@
                                             aria-label="stock" required min="0" step="1">
                                     </div>
                                 </div>
-                                <div class="row m-2">
-                                    <div class="col">
+                                <div class="row m-2 ">
+                                    <div class="col col-md-3 col-xs-12 col-sm-12">
                                         <button type="submit"
                                             class="btn enviarForm btn-dark rounded-0 w-100 mt-2">Agregar</button>
                                     </div>
@@ -120,7 +120,18 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col">
+                                
+                                <div class="col col-md-4 col-xs-12 col-sm-12">
+                                    <button class="btn btn-warning mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#remarModal">Remarcar Precios</button>
+                                </div>
+                                <div class="col col-md-4 col-xs-12 col-sm-12">
+                                    <button class="btn btn-secondary mb-3" id="btnLoadEj">Load Ejemplos</button>
+                                </div>
+                                <div class="col col-md-4 col-xs-12 col-sm-12">
+                                    <button class="btn btn-danger mb-3" id="btnEliminarTodo">Eliminar todo</button>
+                                </div>
+                                <div class="col col-md-12 col-xs-12 col-sm-12 ">
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" placeholder="Buscar"
                                             aria-label="Busqueda" aria-describedby="boton-buscar" id="textBusqueda">
@@ -128,23 +139,13 @@
                                                 name="search"></ion-icon></button>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <button class="btn btn-warning mb-3" data-bs-toggle="modal"
-                                        data-bs-target="#remarModal">Remarcar Precios</button>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-secondary mb-3" id="btnLoadEj">Load Ejemplos</button>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-danger mb-3" id="btnEliminarTodo">Eliminar todo</button>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <span >Cantidad de productos: <span id="cant-prod" >0</span></span>
                                 </div>
                             </div>
-                            <table class="table table-striped table-hover" id="tabla-productos">
+                            <table class="table table-striped table-hover table-responsive" id="tabla-productos">
                                 <thead class="table-dark">
                                     <tr>
                                         <th data-campo="id">Id <i class="fas fa-sort"></i></th>

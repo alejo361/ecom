@@ -66,6 +66,14 @@ body {
     cursor: pointer;
 }
 
+th {
+    cursor: pointer;
+}
+
+.modal-content {
+    background-color: black !important;
+}
+
 /*
 HEX: #020204, RGB: (2, 2, 4); 
 HEX: #204829, RGB: (32, 72, 41); 
