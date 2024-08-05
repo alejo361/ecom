@@ -1,5 +1,6 @@
 //CONTROL DE PERMISOS
 let login = new Login();
+
 login.check();
 const logout = document.getElementById("logout");
 logout.addEventListener('click', (event) => {
