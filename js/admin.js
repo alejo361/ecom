@@ -1,13 +1,13 @@
-let productos = new Productos();
-
 //CONTROL DE PERMISOS
 let login = new Login();
 login.check();
 const logout = document.getElementById("logout");
 logout.addEventListener('click', (event) => {
     login.salir();
-    window.location.assign("../index.html");
+    window.location.replace("../index.html");
 })
+
+let productos = new Productos();
 
 //POBLAR SELECT SEGUN rubros 
 const rubrosSel = document.getElementById("rubro");

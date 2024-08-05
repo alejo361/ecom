@@ -18,7 +18,7 @@ class Login {
             sessionStorage.setItem("usuario", usuario);
             sessionStorage.setItem("rol", "administrador");
             this.mensaje = ""
-            window.location.assign("./vistas/admin.html");
+            window.location.replace("./vistas/admin.html");
         } else {
             this.isLogued = false;
             this.mensaje = "El usuario y/o la contraseña no son correctos."
@@ -30,7 +30,7 @@ class Login {
     salir() {
         sessionStorage.clear();
         //Lo envio al inicio
-        window.location.assign("../index.html");
+        window.location.replace("../index.html");
     }
 
     check() {
@@ -40,7 +40,7 @@ class Login {
             this.isLogued = true;
         } else {
             //Lo envio al inicio
-            window.location.assign("../index.html");
+            window.location.replace("../index.html");
         }
 
     }

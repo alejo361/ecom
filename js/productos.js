@@ -1,7 +1,16 @@
 
 class Productos {
 	constructor() {
-		this.lista = JSON.parse(localStorage.getItem('productos')) || [];
+		//this.lista = JSON.parse(localStorage.getItem('productos')) || []; 
+		//Corrige la linea de arriba que falla edicion del producto al actualizar pagina y con productos en localStorage
+		const productosGuardados = JSON.parse(localStorage.getItem('productos')) || [];		
+        this.lista = productosGuardados.map(prod => new Producto(
+            prod.id,
+            prod.rubro,
+            prod.nombre,
+            prod.precio,
+            prod.stock
+        ));
 	}
 
 	agregarProducto(producto) {
