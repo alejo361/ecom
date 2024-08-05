@@ -1,7 +1,8 @@
 /*
     Esta clase controla el ingreso a ciertos lugares del proyecto 
+    En la proxima entrega se agregara la clase Usuarios y Roles
 */
-class Login{
+class Login {
     constructor() {
         this.rol = 'administrador';//sin uso de momento
         this.usuario = null;
@@ -9,16 +10,16 @@ class Login{
         this.mensaje = "";
     }
 
-    ingresar(usuario, clave){
+    ingresar(usuario, clave) {
         this.usuario = usuario;
-        if(this.usuario == 'admin' && clave == 'admin'){
+        if (this.usuario == 'admin' && clave == 'admin') {
             this.isLogued = true;
             sessionStorage.setItem("isLogued", "true");
             sessionStorage.setItem("usuario", usuario);
             sessionStorage.setItem("rol", "administrador");
             this.mensaje = ""
             window.location.assign("./vistas/admin.html");
-        }else{
+        } else {
             this.isLogued = false;
             this.mensaje = "El usuario y/o la contraseña no son correctos."
             sessionStorage.setItem("isLogued", "false");
@@ -26,19 +27,18 @@ class Login{
         console.log(this);
     }
 
-    salir(){
+    salir() {
         sessionStorage.clear();
         //Lo envio al inicio
         window.location.assign("../index.html");
     }
 
-    check(){
-        console.log(sessionStorage.getItem("isLogued"));
-        if(sessionStorage.getItem("isLogued")== 'true'){
+    check() {
+        if (sessionStorage.getItem("isLogued") == 'true') {
             this.usuario = sessionStorage.getItem("usuario");
             this.rol = sessionStorage.getItem("rol");
             this.isLogued = true;
-        }else{
+        } else {
             //Lo envio al inicio
             window.location.assign("../index.html");
         }

@@ -43,7 +43,7 @@ class Productos {
 	}
 
 	buscarId(id) {
-		return this.lista.find((producto) => producto.id.toUpperCase() === id.toUpperCase());
+		return this.lista.find((producto) => producto.id.toUpperCase() == id.toUpperCase());
 	}
 	
 	incrementarPrecios(porcentaje) {

@@ -113,7 +113,7 @@ if (editModal) {
 //EDITAR PRODUCTO BOTON Y OPERACION
 const btnModificar = document.getElementById('btnMdSave');
 btnModificar.addEventListener('click', (event) => {
-    let prodEdit = productos.buscarId(document.getElementById("mdcodigo").value);
+    prodEdit = productos.buscarId(document.getElementById("mdcodigo").value);
     prodEdit.editarProducto(document.getElementById("mdrubro").value,
         document.getElementById("mdnombre").value,
         document.getElementById("mdprecio").value,
