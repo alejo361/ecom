@@ -43,7 +43,7 @@ body {
 
 .footer {
     font-weight: bolder;
-    color: #020204;
+    color: #22b455;
     background-color: #204829;
 }
 
@@ -73,7 +73,16 @@ th {
 .modal-content {
     background-color: black !important;
 }
-
+.opnionesSection{
+    background-color: #22b455;
+}
+.tituloOpiniones{
+    background-color: #204829;
+    color: #22b455;
+}
+#stockProd, .card-producto{
+    color: #22b455;
+}
 /*
 HEX: #020204, RGB: (2, 2, 4); 
 HEX: #204829, RGB: (32, 72, 41); 

@@ -19,6 +19,12 @@ class Login {
             sessionStorage.setItem("rol", "administrador");
             this.mensaje = ""
             window.location.replace("./vistas/admin.html");
+        } else if (this.usuario == 'ale' && clave == 'ale') {
+            this.isLogued = true;
+            sessionStorage.setItem("isLogued", "true");
+            sessionStorage.setItem("usuario", usuario);
+            sessionStorage.setItem("rol", "cliente");
+            this.mensaje = ""
         } else {
             this.isLogued = false;
             this.mensaje = "El usuario y/o la contraseña no son correctos."
