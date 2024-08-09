@@ -2,7 +2,8 @@
 La funcionalidad de la muestra de los productos y agregar al carrito sera en la proxima entrega
 para el mejor manejo de datos, imagenes e implementacion de mas clases.
 */
-
+let cantArtPedidos = 0;
+const badgePedidos = document.getElementById("cantProdPedido");
 /* INICIO SESSION */
 let login = new Login();
 const linkLogin = document.getElementById("loginLink");
@@ -40,7 +41,7 @@ const grid_productos = document.getElementById('productos-grid');
 const template = document.getElementById('producto-show');
 
 productos.lista.forEach(producto => {
-    if(producto.stock > 0){
+    if (producto.stock > 0) {
         const copia = template.content.cloneNode(true);
         copia.querySelector('#nombreProd').textContent = producto.nombre;
         copia.querySelector('#stockProd').textContent = "Unidades en stock: " + producto.stock;
@@ -48,13 +49,17 @@ productos.lista.forEach(producto => {
 
         // Comprar
         copia.querySelector('.btn-comprar').addEventListener('click', event => {
-            console.log("compraste el producto " + producto.nombre);
-
+            mostrarToast(producto.nombre);
+            cantArtPedidos++;
+            updateBadgePedidos();
         });
         grid_productos.appendChild(copia);
     }
 });
 
+function updateBadgePedidos(){
+    badgePedidos.textContent = parseInt(cantArtPedidos);
+}
 
 /* OPINIONES SIMULADAS */
 const opiniones = [
@@ -118,36 +123,55 @@ function obtenerOpinionAleatoria() {
 }
 
 let clientes;
-let url_api = 'https://randomuser.me/api/?results=5'; 
+let url_api = 'https://randomuser.me/api/?results=5';
 let elemCarousel = document.getElementById("opniones");
 let opnionesSection = document.getElementById("opnionesSection");
 fetch(url_api)
-    .then((response)=> response.json())
+    .then((response) => response.json())
     .then((data) => {
         clientes = data.results;
-        opnionesSection.classList.remove("d-none"); //quito display none para mostrar la section
-        clientes.forEach((cliente, indice)=> {
-            cliente.opinion = obtenerOpinionAleatoria(); 
+        //quito display none para mostrar la section
+        opnionesSection.classList.remove("d-none");
+        clientes.forEach((cliente, indice) => {
+            cliente.opinion = obtenerOpinionAleatoria();
+            //si el indice es 0 que agregue active
             loadOpiniones(cliente, indice === 0);
-            console.log(index);
         });
-        //Inicio carousel
-        let carousel = new bootstrap.Carousel(elemCarousel); 
+        //inicio carousel
+        let carousel = new bootstrap.Carousel(elemCarousel);
     })
-.catch((error)=> console.log(error))
+    .catch((error) => console.log(error))
 
 const cuerpoCarouselOp = document.getElementById("cuerpoCarouselOp");
 
-function loadOpiniones(cliente, isActive = false){
-    cuerpoCarouselOp.innerHTML +=`<div class="carousel-item ${isActive ? 'active' : ''}">
+function loadOpiniones(cliente, isActive = false) {
+    cuerpoCarouselOp.innerHTML += `<div class="carousel-item ${isActive ? 'active' : ''}">
         <p class="lead text-dark mx-4 mx-md-5 clienteOpinion">
             "${cliente.opinion}"
         </p>
         <div class="mt-5 mb-4">
-            <img src="${cliente.picture.thumbnail}"
+            <img src="${cliente.picture.medium}"
                 class="rounded-circle img-fluid shadow-1-strong clienteImagen" alt="foto perfil cliente"
                 width="100" height="100" />
         </div>
         <p class="text-dark mb-3 clienteNombre" id="">${cliente.name.last} ${cliente.name.first}</p>
     </div>`;
 }
+
+
+//mostrar toast al apretar comprar
+function mostrarToast(nombreProd) {
+    Toastify({
+        text: "Agregaste " + nombreProd + " a tu pedido",
+        duration: 3000,
+        style: {
+            background: "#22b455",
+          },
+    }).showToast();
+}
+/*if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    
+  })
+}*/
