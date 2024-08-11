@@ -46,7 +46,7 @@ function agregarNuevoProd(e) {
         formNuevoProd.reset();
         armarTabla(productos.lista);
     } else {
-        alert("No se pudo agregar producto");
+        alert(productos.error);
     }
 }
 
@@ -96,15 +96,17 @@ function armarTabla(listaProductos = null) {
 //EDITAR PRODUCTO MODAL / PRECARGA DE VALORES / RELOAD DE TABLA
 if (editModal) {
     editModal.addEventListener('show.bs.modal', event => {
+        //Obtendo el id del producto
         const button = event.relatedTarget;
         const idProducto = button.getAttribute('data-bs-whatever');
-
-        document.getElementById("mdcodigo").value = idProducto;
         let producto = productos.buscarId(idProducto);
+        //Relleno el formulario con los valores
+        document.getElementById("mdcodigo").value = idProducto;
         document.getElementById("mdrubro").value = producto.rubro;
         document.getElementById("mdnombre").value = producto.nombre;
         document.getElementById("mdprecio").value = producto.precio;
         document.getElementById("mdstock").value = producto.stock;
+
     })
     editModal.addEventListener('hidden.bs.modal', event => {
         armarTabla(productos.lista);
@@ -114,14 +116,19 @@ if (editModal) {
 //EDITAR PRODUCTO BOTON Y OPERACION
 const btnModificar = document.getElementById('btnMdSave');
 btnModificar.addEventListener('click', (event) => {
+    let valido = true;
     prodEdit = productos.buscarId(document.getElementById("mdcodigo").value);
-    prodEdit.editarProducto(document.getElementById("mdrubro").value,
-        document.getElementById("mdnombre").value,
-        document.getElementById("mdprecio").value,
-        document.getElementById("mdstock").value
-    );
-    productos.updateLocalStorage();
-    document.getElementById('closeMdEdit').click();
+
+    if (valido) {
+        prodEdit.editarProducto(document.getElementById("mdrubro").value,
+            document.getElementById("mdnombre").value,
+            document.getElementById("mdprecio").value,
+            document.getElementById("mdstock").value
+        );
+        productos.updateLocalStorage();
+        document.getElementById('closeMdEdit').click();
+    }
+
 })
 
 //REMARCAR PRODUCTOS

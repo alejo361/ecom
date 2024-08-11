@@ -11,14 +11,17 @@ class Productos {
             prod.precio,
             prod.stock
         ));
+		this.error = '';
 	}
 
 	agregarProducto(producto) {
 		if (!this.yaExisteId(producto.id)) {
 			this.lista.push(producto);
 			this.updateLocalStorage();
+			this.error = '';
 			return true;
 		}
+		this.error = 'Ya existe ese codigo de producto';
 		return false;
 	}
 
@@ -79,15 +82,12 @@ class Productos {
 	}
 
 	eliminarProducto(id) {
-		console.log("id a liminar" + id)
 		let indice = this.lista.findIndex((producto) => producto.id.toUpperCase() === id.toUpperCase());
-		console.log("indice encontrado" + indice)
 		if (indice != -1) {
 			this.lista.splice(indice, 1);
 			this.updateLocalStorage();
 			return true;
 		}
-		console.log(indice);
 		return false;
 	}
 

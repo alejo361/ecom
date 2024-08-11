@@ -1,6 +1,5 @@
-/* 
-La funcionalidad de la muestra de los productos y agregar al carrito sera en la proxima entrega
-para el mejor manejo de datos, imagenes e implementacion de mas clases.
+/*
+    Este arhivo contiene la logica y manejo de DOM de index.html
 */
 let cantArtPedidos = 0;
 const badgePedidos = document.getElementById("cantProdPedido");
@@ -39,6 +38,7 @@ btnLogin.addEventListener('click', (event) => {
 let productos = new Productos();
 const grid_productos = document.getElementById('productos-grid');
 const template = document.getElementById('producto-show');
+let pedidoTemp = new PedidoTemporal();
 
 productos.lista.forEach(producto => {
     if (producto.stock > 0) {
@@ -50,6 +50,8 @@ productos.lista.forEach(producto => {
         // Comprar
         copia.querySelector('.btn-comprar').addEventListener('click', event => {
             mostrarToast(producto.nombre);
+            //const pStock = document.getElementById('stockProd')    
+            pedidoTemp.agregarProducto({ id: producto.id, nombre: producto.nombre, cantidad: 1, precio: producto.precio });
             cantArtPedidos++;
             updateBadgePedidos();
         });
