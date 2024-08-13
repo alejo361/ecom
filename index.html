@@ -45,7 +45,7 @@
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link" aria-current="page" href="" data-bs-toggle="modal" id="loginLink"
-                                        data-bs-target="#mdLogin">ENTRAR</a>
+                                        data-bs-target="#mdLogin">ADMIN</a>
                                 </li>
                             </ul>
                         </div>
@@ -102,13 +102,14 @@
                     </div>
                     <div class="modal-body bg-secondary">
                         <form id="formLogin">
+                            <input type="hidden" name="ubi" value="home" id="ubi">
                             <label for="mdUsuario" class="form-label">Usuario:</label>
                             <input type="text" class="form-control rounded-0" placeholder="" id="mdUsuario"
                                 aria-label="mdUsuario" required>
                             <label for="mdPass" class="form-label">Contraseña:</label>
                             <input type="password" class="form-control rounded-0" placeholder="" id="mdPass"
-                                aria-label="mdPass" required>
-                            <button type="button" class="btn btn-dark rounded-0 mt-2 mb-3" id="btnLogin">Entrar</button>
+                                aria-label="mdPass" required minlength="3">
+                            <button type="submit" class="btn btn-dark rounded-0 mt-2 mb-3" id="btnLogin" minlength="3">Entrar</button>
                             <!--<button type="button" class="btn btn-ligth rounded-0 mt-2 mb-3"
                                 id="btnRegistro">Registrarse</button>-->
                             <p id="mdMensaje" class=""></p>
@@ -145,6 +146,7 @@
     <script src="./js/productos.js"></script>
     <script src="./js/pedidotemp.js"></script>
     <script src="./js/opiniones.js"></script>
+    <script src="./js/ingreso.js"></script>
     <script src="./js/index.js"></script>
 </body>
 

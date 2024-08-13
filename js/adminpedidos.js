@@ -11,11 +11,8 @@ logout.addEventListener('click', (event) => {
 let productos = new Productos();
 let pedidos = new Pedidos();
 
-console.log(pedidos);
 //POBLAR SELECT SEGUN rubros 
-
 let estadosPedidos = ['PENDIENTE', 'FINALIZADO'];
-
 function llenarSelect(select) {
     estadosPedidos.forEach((estado) => {
         let opt = document.createElement("option");
@@ -29,7 +26,7 @@ llenarSelect(mdEstado);
 
 const tablaPedidos = document.querySelector("#tabla-pedidos tbody");
 const spanCantPed = document.getElementById("cant-ped");
-const editModal = document.getElementById('editModal')
+const verModal = document.getElementById('verModal')
 
 // TABLA VACIAR
 function limpiarTabla() {
@@ -66,17 +63,17 @@ function armarTabla(filtrados = null) {
                 }*/
             });
 
-            // Editar
-            const btnEdit = copia.querySelector('.btn-editar');
-            btnEdit.setAttribute('data-bs-whatever', pedido.id);
+            // Ver detalle
+            const btnVer = copia.querySelector('.btn-detalle');
+            btnVer.setAttribute('data-bs-whatever', pedido.id);
             tablaPedidos.appendChild(copia);
         });
     }
 }
 
 //CAMBIAR ESTADO PEDIDO MODAL / PRECARGA DE VALORES / RELOAD DE TABLA
-if (editModal) {
-    editModal.addEventListener('show.bs.modal', event => {
+if (verModal) {
+    verModal.addEventListener('show.bs.modal', event => {
         //Obtendo el id del producto
         const button = event.relatedTarget;
         const totalMdPedido = document.getElementById('totalMdPedido');
@@ -103,25 +100,25 @@ if (editModal) {
         totalMdPedido.textContent = "$ "+ pedido.total;
         
     })
-    editModal.addEventListener('hidden.bs.modal', event => {
+    verModal.addEventListener('hidden.bs.modal', event => {
         armarTabla(pedidos.obtenerPedidos());
     })
 }
 
-//EDITAR PEDIDO BOTON Y OPERACION
+//MODIFICAR ESTADO PEDIDO BOTON Y OPERACION
 const btnModificar = document.getElementById('btnMdSave');
 btnModificar.addEventListener('click', (event) => {
     let valido = true;
-    pedEdit = pedidos.buscarId(document.getElementById("mdcodigo").value);
+    pedEdit = pedidos.buscarId(document.getElementById("mdCodigo").value);
 
     if (valido) {
         /*prodEdit.editarProducto(document.getElementById("mdrubro").value,
             document.getElementById("mdnombre").value,
             document.getElementById("mdprecio").value,
             document.getElementById("mdstock").value
-        );
-        productos.updateLocalStorage();
-        document.getElementById('closeMdEdit').click();*/
+        );*/
+        //productos.updateLocalStorage();
+        document.getElementById('closeMdVer').click();
     }
 
 })

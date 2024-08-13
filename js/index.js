@@ -3,13 +3,10 @@
 */
 let cantArtPedidos = 0;
 const badgePedidos = document.getElementById("cantProdPedido");
-/* INICIO SESSION */
-let login = new Login();
 const linkLogin = document.getElementById("loginLink");
 const cantProdPedido = document.getElementById("cantProdPedido");
-const mdLogin = document.getElementById('mdLogin');
+/*const mdLogin = document.getElementById('mdLogin');
 const btnLogin = document.getElementById('btnLogin');
-const btnRegistro = document.getElementById('btnRegistro');
 
 if (mdLogin) {
     mdLogin.addEventListener('show.bs.modal', event => {
@@ -27,7 +24,7 @@ btnLogin.addEventListener('click', (event) => {
     //login.check();
     document.getElementById("mdMensaje").textContent = login.mensaje;
 
-});
+});*/
 
 /* PRODUCTOS */
 let productos = new Productos();

@@ -110,9 +110,9 @@
                                             <td id="tdestado"></td>
                                             <td id="tdtotal"></td>
                                             <td id="tdacciones">
-                                                <button data-bs-toggle="modal" data-bs-target="#editModal"
+                                                <button data-bs-toggle="modal" data-bs-target="#verModal"
                                                     data-bs-whatever=""
-                                                    class="btn btn-primary btn-editar rounded-0">Ver Detalle</button>
+                                                    class="btn btn-primary btn-detalle rounded-0">Ver Detalle</button>
                                                 <button class="btn btn-danger btn-eliminar rounded-0">Eliminar</button>
                                             </td>
                                         </tr>
@@ -124,40 +124,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="remarModal" tabindex="-1" aria-labelledby="remarModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="remarModalLabel">Aumento de precios</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="col">
-                                        <label for="mdRemar" class="form-label">Porcentaje aumento</label>
-                                        <input type="number" min="0" class="form-control rounded-0"
-                                            placeholder="Ej: 10%" id="mdRemar" aria-label="remar" required min="10"
-                                            step="1">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal"
-                                    id="closeMd">Cerrar</button>
-                                <button type="button" class="btn btn-dark rounded-0" id="btnMdRemar">Remarcar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal fade" id="verModal" tabindex="-1" aria-labelledby="verModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-fullscreen"><!--modal-dialog-scrollable">-->
-                    <div class="modal-content">
-                        <form id="editFormModal" class="bg-secondary">
+                    <div class="modal-content bg-secondary">
+                        <form id="verFormModal" class="bg-secondary">
                             <div class="modal-header bg-secondary">
-                                <h1 class="modal-title fs-5" id="editModalLabel" id="modalEditarTitulo">Pedido</h1>
+                                <h1 class="modal-title fs-5" id="verModalLabel" id="modalVerTitulo">Pedido</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -174,7 +147,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="bodyModalPedidos">
-                                                
+
                                             </tbody>
                                             <tfoot>
                                                 <tr class="table-success">
@@ -191,7 +164,6 @@
                                             autofocus aria-label="codigo">
                                         <label for="mdEstado" class="form-label">Estado</label>
                                         <select class="form-select" id="mdEstado" required>
-                                            <option value="" selected>Seleccione</option>
                                         </select>
                                     </div>
                                 </div>
@@ -199,7 +171,7 @@
                             </div>
                             <div class="modal-footer bg-secondary">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    id="closeMdEdit">Cerrar</button>
+                                    id="closeMdVer">Cerrar</button>
                                 <button type="button" class="btn btn-dark" id="btnMdSave">Guardar</button>
                             </div>
                         </form>

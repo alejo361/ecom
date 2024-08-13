@@ -13,7 +13,7 @@ class Login {
         this.mensaje = "";
     }
 
-    ingresar(usuario, clave) {
+    ingresar(usuario, clave, ruta) {
         this.usuario = usuario;
         if (this.usuario == 'admin' && clave == 'admin') {
             this.isLogued = true;
@@ -21,7 +21,12 @@ class Login {
             sessionStorage.setItem("usuario", usuario);
             sessionStorage.setItem("rol", "administrador");
             this.mensaje = ""
-            window.location.replace("./vistas/admin.html");
+            if(ruta == 'home'){
+                window.location.replace("./vistas/admin.html")
+            }else{
+                window.location.replace("../vistas/admin.html");
+            }
+            
         } else {
             this.isLogued = false;
             this.mensaje = "El usuario y/o la contraseña no son correctos."
