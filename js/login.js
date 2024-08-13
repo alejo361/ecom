@@ -1,10 +1,13 @@
 /*
     Esta clase controla el ingreso a ciertos lugares del proyecto 
-    En la proxima entrega se agregara la clase Usuarios y Roles
+    CAMBIO DE CRITERIO: 
+    Para compras no hace falta ser usuario registrado.
+    Solo inicia sesion el administrador para administrar el AMB de Productos y ver Pedidos
+    No tenia mucho sentido implementar toda esta funcionalidad y que sea inseguro, en el curso de React o Node se hara bien.
 */
 class Login {
     constructor() {
-        this.rol = 'administrador';//sin uso de momento
+        this.rol = 'administrador';//sin uso 
         this.usuario = null;
         this.isLogued = null;
         this.mensaje = "";
@@ -19,12 +22,6 @@ class Login {
             sessionStorage.setItem("rol", "administrador");
             this.mensaje = ""
             window.location.replace("./vistas/admin.html");
-        } else if (this.usuario == 'ale' && clave == 'ale') {
-            this.isLogued = true;
-            sessionStorage.setItem("isLogued", "true");
-            sessionStorage.setItem("usuario", usuario);
-            sessionStorage.setItem("rol", "cliente");
-            this.mensaje = ""
         } else {
             this.isLogued = false;
             this.mensaje = "El usuario y/o la contraseña no son correctos."

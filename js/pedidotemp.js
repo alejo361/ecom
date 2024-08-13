@@ -1,15 +1,16 @@
 /*
     Esta clase maneja el pedido temporal que se almacena en sessionStorage
-    es UN solo pedido de una persona.
+    es UN solo pedido (1 o varios prod) de una persona.
 */
 class PedidoTemporal {
     constructor() {
-        //this.cargarPedido();
         this.pedido = JSON.parse(sessionStorage.getItem('pedidoTemporal')) || {
             productos: [],
             nombre: '',
             apellido: '',
-            direccion: ''
+            direccion: '',
+            estado: 'PENDIENTE',
+            total: 0
         };
     }
 
@@ -27,17 +28,14 @@ class PedidoTemporal {
     }
 
     //Suma o resta una unidad a la cantidad pedida
-    cambiarCantidad(producto, operacion = 'sumar') {
+    cambiarCantidad(producto, operacion = 'sumar', stock = 0) {
         const productoExistente = this.pedido.productos.find(p => p.id === producto.id);
-        if(operacion == 'sumar'){
-            productoExistente.cantidad++;
+        if (operacion == 'sumar') { //al sumar evaluo si hay stock disponible
+            productoExistente.cantidad < stock ? productoExistente.cantidad++ : productoExistente.cantidad;
         }
-        if(operacion == 'restar'){
-            if(productoExistente.cantidad > 0){
-                productoExistente.cantidad--;
-            }
+        if (operacion == 'restar') {//al restar evaluo que no sea < 1 la cantidad
+            (productoExistente.cantidad > 1) ? productoExistente.cantidad-- : productoExistente.cantidad;
         }
-        console.log(productoExistente.cantidad);
         this.guardarSession();
     }
 
@@ -56,6 +54,32 @@ class PedidoTemporal {
         }, 0);
     }
 
+    //
+    getCantProdCarrito() {
+        return this.pedido.productos.length || 0
+    }
+
+    //Controla el pedido, devuelve mixed, el mensaje o true
+    checkPedido() {
+        let mensaje = '';
+        if (this.pedido.nombre == '') {
+            mensaje = '- Tu nombre es requerido. ';
+        }
+        if (this.pedido.apellido == '') {
+            mensaje = mensaje + '- Tu apellido es requerido. ';
+        }
+        if (this.pedido.direccion == '') {
+            mensaje = mensaje + '- La dirección del envio es requerida. ';
+        }
+        if (this.getCantProdCarrito() == 0) {
+            mensaje = mensaje + '- Tu pedido no tiene productos.'
+        }
+        if (mensaje == '') {
+            return true;
+        }
+        return mensaje;
+    }
+
     // Establece los datos del cliente
     establecerDatosCliente(nombre, apellido, direccion) {
         this.pedido.nombre = nombre;
@@ -70,7 +94,9 @@ class PedidoTemporal {
             productos: [],
             nombre: '',
             apellido: '',
-            direccion: ''
+            direccion: '',
+            estado: '',
+            total: 0
         };
         this.guardarSession();
     }
@@ -88,12 +114,14 @@ class PedidoTemporal {
         }
 
         // Usa la clase Pedidos para manejar pedidos confirmados
-        const historial = new Pedidos();
-        const resultado = historial.agregarPedido({
+        const pedidosConfirmados = new Pedidos();
+        const resultado = pedidosConfirmados.agregarPedido({
             productos: this.pedido.productos,
             nombre: this.pedido.nombre,
             apellido: this.pedido.apellido,
-            direccion: this.pedido.direccion
+            direccion: this.pedido.direccion,
+            estado: 'PENDIENTE',
+            total: this.getTotalPedido()
         });
 
         if (resultado) {
@@ -102,7 +130,6 @@ class PedidoTemporal {
             console.log("Pedido confirmado y almacenado en localStorage.");
             return true;
         }
-
         return false;
     }
 
@@ -112,11 +139,11 @@ class PedidoTemporal {
     }
 
     // Obtener los datos del cliente
-    obtenerDatosCliente() {
+    /*obtenerDatosCliente() {
         return {
             nombre: this.pedido.nombre,
             apellido: this.pedido.apellido,
             direccion: this.pedido.direccion
         };
-    }
+    }*/
 }

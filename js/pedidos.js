@@ -20,7 +20,9 @@ class Pedidos {
             productos: pedido.productos,
             nombre: pedido.nombre,
             apellido: pedido.apellido,
-            direccion: pedido.direccion
+            direccion: pedido.direccion,
+            estado: 'PENDIENTE',
+            total: pedido.total
         };
 
         // Añadir el nuevo pedido a la lista de pedidos
@@ -41,4 +43,38 @@ class Pedidos {
         this.pedidos = this.pedidos.filter(p => p.id !== id);
         localStorage.setItem('pedidos', JSON.stringify(this.pedidos));
     }
+
+    // Obtiene la cantidad de pedidos totales
+    getCantidadPedidos(){
+        return this.length;
+    }
+
+    // Ordenar listado de pedidos
+    ordenarPor(campo, ascendente = true) {
+		this.pedidos.sort((a, b) => {
+			if (a[campo] < b[campo]) return ascendente ? -1 : 1;
+			if (a[campo] > b[campo]) return ascendente ? 1 : -1;
+			return 0;
+		});
+	}
+
+    //Filtrar pedidos
+    filtrarPedidos(busqueda) {
+		const busquedaUpper = busqueda.toUpperCase();
+		return this.pedidos.filter((pedido) =>
+			pedido.nombre.toUpperCase().includes(busquedaUpper) ||
+			pedido.apellido.toUpperCase().includes(busquedaUpper)
+		);
+	}
+
+    //Filtrar pendientes
+    filtrarEstado(estado = 'PENDIENTE'){
+		return this.pedidos.filter((pedido) =>
+			pedido.estado.toUpperCase().includes(estado) 
+		);
+    }
+
+    buscarId(id) {
+		return this.pedidos.find((pedido) => pedido.id.toUpperCase() == id.toUpperCase());
+	}
 }
