@@ -38,7 +38,7 @@ function armarTabla(filtrados = null) {
     limpiarTabla();
     const pedidosMostrar = filtrados || pedidos.pedidos;
     spanCantPed.innerHTML = pedidosMostrar.length;
-    console.log(pedidosMostrar)
+    //no hay pedidos para mostrar?
     if (pedidosMostrar.length === 0) {
         const fila = tablaPedidos.insertRow();
         const col = fila.insertCell(0);
@@ -56,6 +56,7 @@ function armarTabla(filtrados = null) {
 
             // Eliminar
             copia.querySelector('.btn-eliminar').addEventListener('click', event => {
+                console.log(pedido);
                 /*if (productos.eliminarProducto(producto.id)) {
                     const filaBorrar = event.target.closest('tr');
                     filaBorrar.remove();
@@ -79,16 +80,16 @@ if (verModal) {
         const totalMdPedido = document.getElementById('totalMdPedido');
         const idPedido = button.getAttribute('data-bs-whatever');
         const bodyModalPedidos = document.getElementById('bodyModalPedidos');
+        const verModalLabel = document.getElementById('verModalLabel');
         let pedido = pedidos.buscarId(idPedido);
-        console.log(pedido);
-        console.log(pedido.estado)
         //Relleno el formulario con los valores
+        verModalLabel.textContent = `Pedido: ${pedido.id} Cliente: ${pedido.apellido}, ${pedido.nombre}`
         document.getElementById("mdCodigo").value = idPedido;
         document.getElementById("mdEstado").value = pedido.estado;
         //armar detalle de productos
         bodyModalPedidos.innerHTML = '';
+        //muestro la tabla con productos del pedido
         pedido.productos.forEach(producto => {
-            console.log(producto)
             bodyModalPedidos.innerHTML += `
             <tr>
                 <td>${producto.id}</td>
@@ -110,20 +111,30 @@ const btnModificar = document.getElementById('btnMdSave');
 btnModificar.addEventListener('click', (event) => {
     let valido = true;
     pedEdit = pedidos.buscarId(document.getElementById("mdCodigo").value);
-
+    console.log(pedEdit);
     if (valido) {
-        /*prodEdit.editarProducto(document.getElementById("mdrubro").value,
-            document.getElementById("mdnombre").value,
-            document.getElementById("mdprecio").value,
-            document.getElementById("mdstock").value
-        );*/
-        //productos.updateLocalStorage();
+        //cambio estado del pedido
+        pedEdit.estado = document.getElementById("mdEstado").value; 
+        //si estado es finalizado tengo que restar al stock
+        pedEdit.productos.forEach((producto) =>{
+            productos.actualizarStock(producto.id, producto.cantidad);
+        })
+        
+        pedidos.updateLocalStorage();
         document.getElementById('closeMdVer').click();
     }
 
 })
 
 //BUSQUEDA DE PEDIDOS
+//buscar con al presionar enter
+const textBusqueda = document.getElementById("textBusqueda")
+textBusqueda.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        btnBuscarPed.click();
+    }
+})
+//la busqueda en si
 const btnBuscarPed = document.getElementById('btnBuscarPed');
 btnBuscarPed.addEventListener('click', (event) => {
     let resultados = pedidos.filtrarPedidos(document.getElementById("textBusqueda").value);

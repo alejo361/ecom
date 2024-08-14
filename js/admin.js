@@ -13,7 +13,7 @@ let productos = new Productos();
 //POBLAR SELECT SEGUN rubros 
 const rubrosSel = document.getElementById("rubro");
 const rubrosSelMd = document.getElementById("mdrubro");
-let rubros = ['COMPUTADORAS', 'TABLETS', 'CELULARES', 'PERIFERICOS', 'MONITORES'];
+let rubros = ['COMPUTADORAS', 'TABLETS', 'CELULARES', 'PERIFERICOS', 'MONITORES', 'LAPTOP', 'INSUMOS'];
 
 function llenarSelect(select) {
     rubros.forEach((rubro) => {
@@ -93,6 +93,7 @@ function armarTabla(listaProductos = null) {
     }
 }
 
+const editFormModal = document.getElementById('editFormModal');
 //EDITAR PRODUCTO MODAL / PRECARGA DE VALORES / RELOAD DE TABLA
 if (editModal) {
     editModal.addEventListener('show.bs.modal', event => {
@@ -106,7 +107,7 @@ if (editModal) {
         document.getElementById("mdnombre").value = producto.nombre;
         document.getElementById("mdprecio").value = producto.precio;
         document.getElementById("mdstock").value = producto.stock;
-
+        editFormModal.addEventListener("submit", modificarProd);
     })
     editModal.addEventListener('hidden.bs.modal', event => {
         armarTabla(productos.lista);
@@ -115,7 +116,8 @@ if (editModal) {
 
 //EDITAR PRODUCTO BOTON Y OPERACION
 const btnModificar = document.getElementById('btnMdSave');
-btnModificar.addEventListener('click', (event) => {
+function modificarProd(e) {
+    e.preventDefault();
     let valido = true;
     prodEdit = productos.buscarId(document.getElementById("mdcodigo").value);
 
@@ -128,8 +130,7 @@ btnModificar.addEventListener('click', (event) => {
         productos.updateLocalStorage();
         document.getElementById('closeMdEdit').click();
     }
-
-})
+}
 
 //REMARCAR PRODUCTOS
 const btnMdRemar = document.getElementById('btnMdRemar');
@@ -140,9 +141,17 @@ btnMdRemar.addEventListener('click', (event) => {
 })
 
 //BUSQUEDA DE PRODUCTOS
+//disparar click cuando se presiona entrar para comodidad usuario
+const textBusqueda = document.getElementById("textBusqueda")
+textBusqueda.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        btnBuscarProd.click();
+    }
+})
+//listener y busqueda en si
 const btnBuscarProd = document.getElementById('btnBuscarProd');
 btnBuscarProd.addEventListener('click', (event) => {
-    let resultados = productos.filtrarProductos(document.getElementById("textBusqueda").value);
+    let resultados = productos.filtrarProductos(textBusqueda.value);
     armarTabla(resultados);
 })
 

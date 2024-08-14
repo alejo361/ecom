@@ -33,6 +33,15 @@ class Pedidos {
         return true;
     }
 
+    updateLocalStorage() {
+		//Esta condicion evita que si estoy borrando y queda un solo elemento me lo dejaba en LocalStorage
+		if (this.pedidos.length === 0) {
+            localStorage.removeItem("pedidos");
+        } else {
+            localStorage.setItem('pedidos', JSON.stringify(this.pedidos));
+        }
+	}
+
     // Obtiene todos los pedidos almacenados
     obtenerPedidos() {
         return this.pedidos;

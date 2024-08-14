@@ -22,14 +22,14 @@ class Login {
             sessionStorage.setItem("rol", "administrador");
             this.mensaje = ""
             if(ruta == 'home'){
-                window.location.replace("./vistas/admin.html")
+                window.location.replace("./vistas/admin.html");
             }else{
                 window.location.replace("../vistas/admin.html");
             }
             
         } else {
             this.isLogued = false;
-            this.mensaje = "El usuario y/o la contraseña no son correctos."
+            this.mensaje = "El usuario y/o la contraseña no son correctos.";
             sessionStorage.setItem("isLogued", "false");
         }
         console.log(this);
@@ -37,7 +37,6 @@ class Login {
 
     salir() {
         sessionStorage.clear();
-        //Lo envio al inicio
         window.location.replace("../index.html");
     }
 
@@ -47,7 +46,6 @@ class Login {
             this.rol = sessionStorage.getItem("rol");
             this.isLogued = true;
         } else {
-            //Lo envio al inicio
             window.location.replace("../index.html");
         }
 

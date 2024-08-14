@@ -47,6 +47,13 @@ class Productos {
 		return (this.lista == undefined || this.lista.length == 0) ? 0 : this.lista.length;
 	}
 
+	//resta stock de la cantidad del producto pedido al estar confirmado
+	actualizarStock(id, cantidad){
+		let prod = this.buscarId(id);
+		prod.stock = prod.stock - cantidad;
+		this.updateLocalStorage();
+	}
+
 	yaExisteId(id) {
 		if (this.cantidad() > 0) {
 			return this.lista.some((producto) => producto.id.includes(id));
