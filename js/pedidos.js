@@ -10,7 +10,6 @@ class Pedidos {
     // Agrega un nuevo pedido
     agregarPedido(pedido) {
         if (!pedido || !pedido.productos || pedido.productos.length === 0) {
-            console.log("Pedido inválido.");
             return false;
         }
 
@@ -22,6 +21,7 @@ class Pedidos {
             apellido: pedido.apellido,
             direccion: pedido.direccion,
             estado: 'PENDIENTE',
+            email: pedido.email,
             total: pedido.total
         };
 
@@ -72,7 +72,8 @@ class Pedidos {
 		const busquedaUpper = busqueda.toUpperCase();
 		return this.pedidos.filter((pedido) =>
 			pedido.nombre.toUpperCase().includes(busquedaUpper) ||
-			pedido.apellido.toUpperCase().includes(busquedaUpper)
+			pedido.apellido.toUpperCase().includes(busquedaUpper) ||
+            pedido.email.toUpperCase().includes(busquedaUpper) 
 		);
 	}
 

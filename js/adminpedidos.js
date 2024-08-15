@@ -42,7 +42,7 @@ function armarTabla(filtrados = null) {
     if (pedidosMostrar.length === 0) {
         const fila = tablaPedidos.insertRow();
         const col = fila.insertCell(0);
-        col.setAttribute('colspan', 6);
+        col.setAttribute('colspan', 7);
         col.innerHTML = "No se encontraron pedidos";
     } else {
         const template = document.getElementById('fila-pedido');
@@ -51,18 +51,9 @@ function armarTabla(filtrados = null) {
             copia.querySelector('#tdid').textContent = pedido.id;
             copia.querySelector('#tdnombre').textContent = pedido.nombre;
             copia.querySelector('#tdapellido').textContent = pedido.apellido;
+            copia.querySelector('#tdemail').textContent = pedido.email;
             copia.querySelector('#tdestado').textContent =  pedido.estado;
             copia.querySelector('#tdtotal').textContent = "$ " + pedido.total;
-
-            // Eliminar
-            copia.querySelector('.btn-eliminar').addEventListener('click', event => {
-                console.log(pedido);
-                /*if (productos.eliminarProducto(producto.id)) {
-                    const filaBorrar = event.target.closest('tr');
-                    filaBorrar.remove();
-                    spanCantPed.innerHTML = productos.cantidad();
-                }*/
-            });
 
             // Ver detalle
             const btnVer = copia.querySelector('.btn-detalle');
@@ -83,7 +74,7 @@ if (verModal) {
         const verModalLabel = document.getElementById('verModalLabel');
         let pedido = pedidos.buscarId(idPedido);
         //Relleno el formulario con los valores
-        verModalLabel.textContent = `Pedido: ${pedido.id} Cliente: ${pedido.apellido}, ${pedido.nombre}`
+        verModalLabel.textContent = `Pedido: ${pedido.id} Cliente: ${pedido.apellido}, ${pedido.nombre}  Email: ${pedido.email}`;
         document.getElementById("mdCodigo").value = idPedido;
         document.getElementById("mdEstado").value = pedido.estado;
         //armar detalle de productos
@@ -111,7 +102,6 @@ const btnModificar = document.getElementById('btnMdSave');
 btnModificar.addEventListener('click', (event) => {
     let valido = true;
     pedEdit = pedidos.buscarId(document.getElementById("mdCodigo").value);
-    console.log(pedEdit);
     if (valido) {
         //cambio estado del pedido
         pedEdit.estado = document.getElementById("mdEstado").value; 

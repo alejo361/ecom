@@ -1,4 +1,8 @@
 
+/*
+	Esta clase opera sobre un conjunto de prodcutos. Almacena los datos en localStorage
+	No se agrego imagenes de productos al proyecto porque no seria tan ilustrativo si no puedo almacenarlas en el servidor.
+*/
 class Productos {
 	constructor() {
 		//this.lista = JSON.parse(localStorage.getItem('productos')) || []; 

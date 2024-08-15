@@ -32,7 +32,7 @@ class Login {
             this.mensaje = "El usuario y/o la contraseña no son correctos.";
             sessionStorage.setItem("isLogued", "false");
         }
-        console.log(this);
+        //console.log(this);
     }
 
     salir() {

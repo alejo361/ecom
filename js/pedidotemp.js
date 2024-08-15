@@ -9,22 +9,27 @@ class PedidoTemporal {
             nombre: '',
             apellido: '',
             direccion: '',
+            email: '',
             estado: 'PENDIENTE',
             total: 0
         };
     }
 
     // Agrega un producto al pedido
-    agregarProducto(producto) {
+    agregarProducto(producto, stock) {
         const productoExistente = this.pedido.productos.find(p => p.id === producto.id);
         if (productoExistente) {
-            // Actualiza la cantidad del producto si ya existe
-            productoExistente.cantidad += producto.cantidad;
+            // Actualiza la cantidad del producto si ya existe y hay stock
+            if(productoExistente.cantidad >= stock){
+                return false;    
+            }
+            productoExistente.cantidad += producto.cantidad            
         } else {
             // Añade el nuevo producto al pedido
             this.pedido.productos.push(producto);
         }
         this.guardarSession();
+        return true;
     }
 
     //Suma o resta una unidad a la cantidad pedida
@@ -54,7 +59,7 @@ class PedidoTemporal {
         }, 0);
     }
 
-    //
+    //Retorna la cantidad de productos del pedido.
     getCantProdCarrito() {
         return this.pedido.productos.length || 0
     }
@@ -71,6 +76,9 @@ class PedidoTemporal {
         if (this.pedido.direccion == '') {
             mensaje = mensaje + '- La dirección del envio es requerida. ';
         }
+        if (this.pedido.email == '') {
+            mensaje = mensaje + '- La dirección de correo electrónico es requerida. ';
+        }        
         if (this.getCantProdCarrito() == 0) {
             mensaje = mensaje + '- Tu pedido no tiene productos.'
         }
@@ -81,10 +89,11 @@ class PedidoTemporal {
     }
 
     // Establece los datos del cliente
-    establecerDatosCliente(nombre, apellido, direccion) {
+    establecerDatosCliente(nombre, apellido, direccion, email) {
         this.pedido.nombre = nombre;
         this.pedido.apellido = apellido;
         this.pedido.direccion = direccion;
+        this.pedido.email = email
         this.guardarSession();
     }
 
@@ -95,6 +104,7 @@ class PedidoTemporal {
             nombre: '',
             apellido: '',
             direccion: '',
+            email: '',
             estado: '',
             total: 0
         };
@@ -109,17 +119,21 @@ class PedidoTemporal {
     // Confirma el pedido y lo guarda en localStorage usando HistorialPedidos
     confirmarPedido() {
         if (this.pedido.productos.length === 0) {
-            console.log("El pedido está vacío. No se puede confirmar el pedido.");
             return false;
         }
 
         // Usa la clase Pedidos para manejar pedidos confirmados
+        // que almacena en localStorage
+        // EN UN CASO REAL DEBERIA CONFIRMAR LA DISPONIBILIDAD DE CADA PRODUCTO AQUI
+        // YA QUE NO PUEDO DAR DE BAJA STOCK EN UN PEDIDO SIN CONFIRMAR, PERO TAMPOCO PUEDO VENDER 
+        // UN PRODUCTO QUE SE AGOTE (por ej otro usuario compra mientras otro completa el formulario)
         const pedidosConfirmados = new Pedidos();
         const resultado = pedidosConfirmados.agregarPedido({
             productos: this.pedido.productos,
             nombre: this.pedido.nombre,
             apellido: this.pedido.apellido,
             direccion: this.pedido.direccion,
+            email: this.pedido.email,
             estado: 'PENDIENTE',
             total: this.getTotalPedido()
         });
@@ -127,7 +141,7 @@ class PedidoTemporal {
         if (resultado) {
             // Vacia el pedido en sessionStorage
             this.vaciarPedido();
-            console.log("Pedido confirmado y almacenado en localStorage.");
+            //console.log("Pedido confirmado y almacenado en localStorage.");
             return true;
         }
         return false;
@@ -138,12 +152,4 @@ class PedidoTemporal {
         return this.productos;
     }
 
-    // Obtener los datos del cliente
-    /*obtenerDatosCliente() {
-        return {
-            nombre: this.pedido.nombre,
-            apellido: this.pedido.apellido,
-            direccion: this.pedido.direccion
-        };
-    }*/
 }

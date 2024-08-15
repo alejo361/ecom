@@ -3,13 +3,13 @@
 */
 let pedidoTemp = new PedidoTemporal();
 let productos = new Productos();
-//console.log(pedidoTemp);
 
 //CONTROLAR Y CONFIRMAR PEDIDO
 const mensajePedido = document.getElementById("mensajePedido");
 const nombre = document.getElementById("nombre");
 const apellido = document.getElementById("apellido");
 const direccion = document.getElementById("direccion");
+const email = document.getElementById("email");
 const formFinalizarPedido = document.getElementById('finalizarPedido');
 
 //CARGO DATOS ENTREGA DEL PEDIDO
@@ -20,7 +20,7 @@ function cargarPedidoForm() {
 }
 
 formFinalizarPedido.addEventListener('submit', (e) => {
-    pedidoTemp.establecerDatosCliente(nombre.value, apellido.value, direccion.value);
+    pedidoTemp.establecerDatosCliente(nombre.value, apellido.value, direccion.value, email.value);
     let pedidoValido = pedidoTemp.checkPedido();
     if (pedidoValido !== true) {
         e.preventDefault();
@@ -59,7 +59,6 @@ function armarTablaPedidos() {
 
         //Aumentar cantidad producto
         copia.querySelector('.btn-mas').addEventListener('click', event => {
-            console.log(prodStock.stock);
             pedidoTemp.cambiarCantidad(prodPed, 'sumar', prodStock.stock);
             armarTablaPedidos();
         });
